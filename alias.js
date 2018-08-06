@@ -43,13 +43,14 @@ function setKeysPatten(options) {
 
 function replaceCallback(match, subMatch) {
     if (keysPattern.test(subMatch)) {
-        let key = subMatch.substr(0, subMatch.indexOf('/'));
-        let url = path.join(opt[key], subMatch.slice(subMatch.indexOf('/')));
+        let key = subMatch;
+        let pathUrl = path.join(process.cwd(), opt[key].substr(1)).replace('src', 'dist');
         return match.replace(
             subMatch,
-            path.relative(filePath, url).replace(/\\/g, '/').replace(/^\.\.\//, '')
+            path.relative(filePath, pathUrl).replace(/\\/g, '/').replace(/^\.\.\//, '')
         );
     } else {
         return match;
     }
 }
+
